@@ -32,8 +32,10 @@ router.post("/trigger", (req, res) => {
 
   let stderr = "";
   child.stderr.on("data", (chunk) => {
-    stderr += chunk.toString();
-  });
+  const text = chunk.toString();
+  stderr += text;
+  console.error(text); // Print Python error to Render logs
+});
 
   child.on("close", (code) => {
     const job = jobs.get(jobId);
