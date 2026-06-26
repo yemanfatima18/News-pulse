@@ -1,9 +1,4 @@
-"""
-db.py — PostgreSQL wrapper for persisting articles and clusters.
 
-Uses Neon PostgreSQL via psycopg2.
-Set the DATABASE_URL environment variable before running.
-"""
 
 import os
 import logging
