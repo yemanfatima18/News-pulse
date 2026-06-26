@@ -36,22 +36,25 @@ router.post("/trigger", (req, res) => {
   stderr += text;
   console.error(text); // Print Python error to Render logs
 });
+  child.stdout.on("data", (chunk) => {
+  console.log(chunk.toString());
+});
 
   child.on("close", (code) => {
-    const job = jobs.get(jobId);
-    if (!job) return;  
+  console.log(`Python exited with code ${code}`);
 
-    job.finishedAt = new Date().toISOString();
-    if (code === 0) {
-      job.status = "done";
-    } else {
-      job.status = "error";
-      
-      job.error = stderr.slice(-500) || `Process exited with code ${code}`;
-    }
-  });
+  const job = jobs.get(jobId);
+  if (!job) return;
 
-  res.json({ jobId });
+  job.finishedAt = new Date().toISOString();
+
+  if (code === 0) {
+    job.status = "done";
+  } else {
+    job.status = "error";
+    job.error = stderr || `Process exited with code ${code}`;
+    console.error(stderr);
+  }
 });
 
 
