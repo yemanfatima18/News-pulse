@@ -32,11 +32,23 @@ app.use("/timeline", timelineRouter);
 app.use("/ingest",   ingestRouter);
 
 
-app.get("/health", (_req, res) => {
-  res.json({ status: "ok", ts: new Date().toISOString() });
+// Root endpoint
+app.get("/", (_req, res) => {
+  res.json({
+    status: "OK",
+    message: "News Pulse Backend is running"
+  });
 });
 
+// Health endpoint
+app.get("/health", (_req, res) => {
+  res.json({
+    status: "ok",
+    ts: new Date().toISOString()
+  });
+});
 
+// 404 handler
 app.use((_req, res) => {
   res.status(404).json({ error: "Endpoint not found" });
 });
