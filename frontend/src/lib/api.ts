@@ -1,5 +1,7 @@
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://news-pulse-m7j1.onrender.com";
 
 
 
